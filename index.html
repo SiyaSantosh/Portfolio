@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Siya Santosh — Full-Stack Software Engineer · AI & Data Science</title>
+<title>Siya Santosh — Software Engineer · AI & Data Science Engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
@@ -197,28 +197,16 @@ nav.scrolled { border-color:var(--line); background:rgba(10,10,10,0.9); backdrop
 .spill:hover { color:var(--accent); border-color:rgba(99,211,255,0.35); background:rgba(99,211,255,0.05); transform:translateY(-2px); }
 
 /* ── CONNECT ── */
-.connect-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+.connect-grid { display:flex; flex-direction:column; align-items:center; text-align:center; }
 .connect-left {}
 .connect-headline { font-family:var(--serif); font-size:clamp(36px,5vw,56px); font-weight:300; color:var(--white); line-height:1.05; letter-spacing:-0.01em; margin-bottom:24px; }
 .connect-headline em { font-style:italic; color:var(--accent); }
-.connect-sub { color:var(--muted); font-size:13.5px; line-height:1.9; margin-bottom:36px; max-width:380px; }
-.connect-ways { display:flex; flex-direction:column; gap:14px; }
+.connect-sub { color:var(--muted); font-size:13.5px; line-height:1.9; margin-bottom:36px; max-width:480px; margin-left:auto; margin-right:auto; }
+.connect-ways { display:flex; flex-direction:row; gap:24px; justify-content:center; flex-wrap:wrap; }
 .connect-way { display:flex; align-items:center; gap:14px; color:var(--text); text-decoration:none; font-size:12.5px; transition:color .2s; }
 .connect-way:hover { color:var(--accent); }
 .connect-way-icon { width:38px; height:38px; border:1px solid var(--line); border-radius:2px; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:border-color .2s,background .2s; }
 .connect-way:hover .connect-way-icon { border-color:rgba(99,211,255,0.4); background:rgba(99,211,255,0.05); }
-
-/* contact form */
-.connect-form { display:flex; flex-direction:column; gap:0; }
-.fg { display:flex; flex-direction:column; gap:8px; margin-bottom:22px; }
-.fg label { font-size:10px; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); }
-.fg input, .fg textarea { background:transparent; border:none; border-bottom:1px solid var(--line); color:var(--text); font-family:var(--mono); font-size:13px; padding:12px 0; outline:none; resize:none; transition:border-color .25s; }
-.fg input:focus, .fg textarea:focus { border-color:var(--accent); }
-.fg input::placeholder, .fg textarea::placeholder { color:var(--muted); }
-.form-row { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
-.submit-btn { display:inline-flex; align-items:center; gap:10px; background:transparent; border:1px solid rgba(99,211,255,0.35); color:var(--accent); font-family:var(--mono); font-size:11px; letter-spacing:0.14em; text-transform:uppercase; padding:14px 28px; border-radius:2px; cursor:none; transition:background .25s,color .25s,transform .2s,box-shadow .25s; margin-top:8px; align-self:flex-start; }
-.submit-btn:hover { background:var(--accent); color:var(--bg); transform:translateY(-3px); box-shadow:0 10px 28px rgba(99,211,255,0.28); }
-.form-ok { display:none; font-size:12px; color:#4ade80; margin-top:16px; letter-spacing:0.08em; }
 
 /* ── FOOTER ── */
 .site-footer { padding:24px 56px; border-top:1px solid var(--line); position:relative; z-index:2; }
@@ -489,20 +477,6 @@ nav.scrolled { border-color:var(--line); background:rgba(10,10,10,0.9); backdrop
         </div>
       </div>
 
-      <div class="connect-form rev2">
-        <div class="form-row">
-          <div class="fg"><label>Name</label><input type="text" placeholder="Your name" id="cf-name"/></div>
-          <div class="fg"><label>Email</label><input type="email" placeholder="your@email.com" id="cf-email"/></div>
-        </div>
-        <div class="fg"><label>Subject</label><input type="text" placeholder="Project collab, opportunity, just saying hi..." id="cf-sub"/></div>
-        <div class="fg"><label>Message</label><textarea rows="5" placeholder="Tell me what you're working on..." id="cf-msg"></textarea></div>
-        <button class="submit-btn" onclick="sendForm()">
-          Send Message
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div class="form-ok" id="form-ok">✓ Message sent — I'll get back to you soon!</div>
-      </div>
-
     </div>
   </div>
 </section>
@@ -563,20 +537,7 @@ const revIO=new IntersectionObserver(entries=>{
 },{threshold:0.1});
 document.querySelectorAll('.rev,.rev2').forEach(el=>revIO.observe(el));
 
-/* ── FORM — opens mailto so message reaches Siya ── */
-function sendForm(){
-  const n=document.getElementById('cf-name').value.trim();
-  const e=document.getElementById('cf-email').value.trim();
-  const s=document.getElementById('cf-sub').value.trim();
-  const m=document.getElementById('cf-msg').value.trim();
-  if(!n||!e||!m){ alert('Please fill in your name, email, and message.'); return; }
-  const subject=encodeURIComponent((s||'Portfolio Contact')+' — from '+n);
-  const body=encodeURIComponent('Name: '+n+'\nEmail: '+e+'\n\n'+m);
-  window.location.href='mailto:siya_santosh@outlook.com?subject='+subject+'&body='+body;
-  const btn=document.querySelector('.submit-btn');
-  btn.style.display='none';
-  document.getElementById('form-ok').style.display='block';
-}
+
 </script>
 </body>
 </html>
